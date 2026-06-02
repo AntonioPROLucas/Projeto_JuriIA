@@ -192,7 +192,8 @@ class SecretariaAI:
         # A biblioteca Agno cuida do token automaticamente se ele estiver na raiz
         calendar_tool = GoogleCalendarTools(
             credentials_path=str(cls.CREDENTIALS_PATH),
-            calendar_id='primary'
+            calendar_id='primary',
+            scopes=["https://www.googleapis.com/auth/calendar"]
         )
 
         return Agent(
