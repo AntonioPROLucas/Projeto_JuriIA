@@ -48,5 +48,17 @@ O **JuriIA** é uma solução de automação jurídica inteligente desenvolvida 
 ## 🏗️ Arquitetura do Sistema
   O sistema foi desenhado para separar a camada de conhecimento (documentos) da camada de execução (agentes), garantindo que a IA consulte sempre a base de dados antes de realizar qualquer ação externa.
   
+## ADR 001: Escolha da Abordagem de Integração
+
+Contexto: Necessidade de conectar o WhatsApp ao sistema de IA com o menor custo operacional possível.
+
+Opção A (Middleware n8n): Reduz o esforço de codificação, mas introduz custos operacionais (mensalidade) e latência de rede.
+
+Opção B (Integração Direta via Django): Aumenta o esforço de codificação inicial e exigiu o desenvolvimento de um Adapter próprio (wrapper_evolution_api), mas resulta em custo operacional zero (além da infraestrutura do servidor principal).
+
+Decisão: Opção B.
+
+Consequência: O sistema está mais acoplado, porém é financeiramente autossustentável durante a fase de validação do produto.
+  
 ## 📝 Licença
   Este projeto está sob a licença MIT. Sinta-se à vontade para utilizar, aprender e contribuir!
