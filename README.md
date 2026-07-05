@@ -47,6 +47,11 @@ O **JuriIA** é uma solução de automação jurídica inteligente desenvolvida 
   python manage.py runserver
 ## 🏗️ Arquitetura do Sistema
   O sistema foi desenhado para separar a camada de conhecimento (documentos) da camada de execução (agentes), garantindo que a IA consulte sempre a base de dados antes de realizar qualquer ação externa.
+
+## Vídeo Apresentação do projeto:
+
+https://youtu.be/ynSrh_bMNk8?si=iVENHtK53QTfGaqy
+
   
 ## ADR 001: Escolha da Abordagem de Integração
 
