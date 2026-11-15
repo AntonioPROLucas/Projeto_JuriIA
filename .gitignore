@@ -218,3 +218,13 @@ __marimo__/
 # Chaves sensíveis do Google Cloud (APIs e Tokens)
 credentials.json
 token.json
+
+# Credenciais e dados locais do projeto
+client_secret*.json
+*.pem
+*.key
+
+# Banco vetorial e uploads
+lancedb/
+media/
+*.sqlite3
