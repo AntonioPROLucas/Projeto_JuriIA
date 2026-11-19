@@ -228,3 +228,7 @@ client_secret*.json
 lancedb/
 media/
 *.sqlite3
+
+# Arquivos gerados e anotações locais
+staticfiles/
+architeture.txt

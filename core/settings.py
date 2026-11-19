@@ -1,6 +1,8 @@
 from pathlib import Path
-from pathlib import Path
 from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Carrega as variáveis do arquivo .env para a memória
 load_dotenv()
@@ -12,14 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-069=w%%ihcq28f8t5rr)!w2b9l1j+lbj@d$u5ns7lt3d7t##x0'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 # Application definition
 

@@ -1,3 +1,4 @@
+import os
 import json
 import requests
 from agno.agent import Agent
@@ -11,16 +12,11 @@ from dotenv import load_dotenv
 from tzlocal import get_localzone_name
 from agno.tools.googlecalendar import GoogleCalendarTools
 from agno.models.google import Gemini
-from tzlocal import get_localzone_name
 import datetime
 from django.conf import settings
 
 load_dotenv()
 
-calendar_tools = GoogleCalendarTools(
-    credentials_path=settings.BASE_DIR / "credentials.json",
-    calendar_id='primary'
-)
 
 @tool
 def search_datajud_api(tribunal: TribunalLiteral, process_number: str) -> str:
@@ -51,8 +47,12 @@ def search_datajud_api(tribunal: TribunalLiteral, process_number: str) -> str:
             }
         }
     }
+    api_key = os.environ.get("DATAJUD_API_KEY", "")
+    if not api_key:
+        return json.dumps({"error": "DATAJUD_API_KEY não configurada no .env"})
+
     headers = {
-        "Authorization": f"APIKey cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw==",
+        "Authorization": f"APIKey {api_key}",
         "Content-Type": "application/json"
     }
 
@@ -65,7 +65,6 @@ def search_datajud_api(tribunal: TribunalLiteral, process_number: str) -> str:
     
 class JuriAi:
     DATAJUD_BASE_URL = "https://api-publica.datajud.cnj.jus.br"
-    DATAJUD_API_KEY = "cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw=="
     VECTOR_DB_TABLE = "documentos"
     VECTOR_DB_URI = "lancedb"
     MEMORY_DB_FILE = "db.sqlite3"

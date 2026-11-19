@@ -1,13 +1,16 @@
+import os
 import requests
 from urllib.parse import urlencode, urljoin
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class BaseEvolutionAPI:
 
     def __init__(self):
-        self.BASE_URL = 'https://evolution-api-production-ca5f.up.railway.app'
-        self._API_KEY = {
-            'Arcane3': 'yi9151g6j2so4nm14ioti'
-        }
+        self.BASE_URL = os.environ.get("EVOLUTION_BASE_URL", "")
+        self._API_KEY = os.environ.get("EVOLUTION_API_KEY", "")
 
     def _send_request(
             self,
@@ -17,6 +20,11 @@ class BaseEvolutionAPI:
             headers={},
             params_url={}
     ):
+        if not self.BASE_URL or not self._API_KEY:
+            raise RuntimeError(
+                "Configure EVOLUTION_BASE_URL e EVOLUTION_API_KEY no arquivo .env"
+            )
+
         method.upper()
         url = self._mount_url(path, params_url)
 
@@ -24,7 +32,7 @@ class BaseEvolutionAPI:
             headers = {}
 
         headers.setdefault('Content-Type', 'application/json')
-        headers['apikey'] = self._API_KEY.get('Arcane3')
+        headers['apikey'] = self._API_KEY
 
         request = {
             'GET': requests.get,
@@ -33,7 +41,7 @@ class BaseEvolutionAPI:
             'DELETE': requests.delete
         }
         return request(url, headers=headers, json=body)
-    
+
     def _mount_url(self, path, params_url):
 
         if isinstance(params_url, dict):
@@ -43,8 +51,7 @@ class BaseEvolutionAPI:
 
         if parameters:
             url = url + '?' + parameters
-        return url
-    
+        return url    
 
 class SendMessage(BaseEvolutionAPI):
     
